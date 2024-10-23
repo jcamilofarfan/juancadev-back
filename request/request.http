@@ -1,0 +1,71 @@
+# to perform tests locally, check if the port has been changed, this appears in the console as soon as the server starts
+@hostname = http://localhost:5000
+
+# the token must be generated either with the SignUp or the Login, it must be copied without quotes
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiZXhwIjoxNjY3NjA2NDY0fQ.8-dFGLIvV7_j-1QHRWl1uAKs4izYPUg589mkM7IkMK8
+
+### /
+GET {{hostname}}/
+
+### health
+GET {{hostname}}/health
+
+### SignUp
+POST {{hostname}}/auth/signup
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "password": "password",
+    "name": "name"
+}
+
+### Login
+POST {{hostname}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "email@email.com",
+    "password": "password"
+}
+
+### Create a Todo -> run twice in a row to see changes when PATH or DELETE is sent
+POST {{hostname}}/todo/create
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "task": "First Todo"
+}
+
+### Get Todos -> run every PATH or DELETE is sent to see changes
+GET {{hostname}}/todo/list
+Authorization: Bearer {{token}}
+
+### Get a Todo
+GET {{hostname}}/todo/1
+Authorization: Bearer {{token}}
+
+### Update Todo Title
+PATCH {{hostname}}/todo/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "task": "Second Todo"
+}
+
+### Check Todo
+PATCH {{hostname}}todo/2/check
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "completed": false
+}
+
+### Delete Todo
+DELETE {{hostname}}todo/5
+Authorization: Bearer {{token}}
+
+

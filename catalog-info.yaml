@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bbog-dig-pl-go-mngr-template
+  annotations:
+    github.com/project-slug: bancodebogota/bbog-dig-pl-go-mngr-template
+spec:
+  type: service
+  lifecycle: unknown
+  owner: dig-reader
